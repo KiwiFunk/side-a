@@ -1,35 +1,42 @@
-//Handle the 3D model rendering
 import React, { useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 
 function Model() {
-  const { nodes, materials } = useGLTF('/public/models/CassetteTape.gltf');
+  const { nodes, materials } = useGLTF('/models/CassetteTape.gltf');
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
+    // Update scroll position
     const onScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useFrame(() => {
-    const scaleFactor = 1 + scrollY * 0.001;        // Adjust scaling rate
-    const rotationFactor = scrollY * 0.002;         // Adjust rotation rate
+    // Normalize scroll for animations (adjust as needed)
+    const scrollFactor = scrollY * 0.001;
 
-    // Update model transformations based on scroll
-    nodes.case_lid.scale.set(scaleFactor, scaleFactor, scaleFactor);
-    nodes.case_lid.rotation.x = rotationFactor;
+    // Animations
+    // 1. Rotate & scale Case Lower
+    const caseLower = nodes['Case Lower'];
+    caseLower.rotation.y = scrollFactor * Math.PI * 0.5; // Rotate to 3Q angle
+    caseLower.scale.set(1 + scrollFactor, 1 + scrollFactor, 1 + scrollFactor); // Scale up
 
-    nodes.cassette_tape.scale.set(scaleFactor, scaleFactor, scaleFactor);
-    nodes.cassette_tape.rotation.y = rotationFactor;
+    // 2. Rotate Case Upper (child of Case Lower)
+    const caseUpper = nodes['Case Lid'];
+    caseUpper.rotation.x = Math.min(scrollFactor * 2.5, 70 * (Math.PI / 180)); // Open lid
+
+    // 3. Slide Cassette Tape (child of Case Upper)
+    const cassetteTape = nodes['CassetteTape'];
+    cassetteTape.position.y = scrollFactor * 5; // Move up along local Y-axis
   });
 
   return (
     <group>
-      <mesh geometry={nodes.case_bottom.geometry} material={materials.case_bottom} />
-      <mesh geometry={nodes.case_lid.geometry} material={materials.case_lid} />
-      <mesh geometry={nodes.cassette_tape.geometry} material={materials.cassette_tape} />
+      <mesh geometry={nodes['Case Lower'].geometry} material={materials['Case Lower']} />
+      <mesh geometry={nodes['Case Lid'].geometry} material={materials['Case Lid']} />
+      <mesh geometry={nodes['CassetteTape'].geometry} material={materials['Cassette Tape']} />
     </group>
   );
 }
