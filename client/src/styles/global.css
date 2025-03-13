@@ -10,15 +10,14 @@ header {
     width: 100%;
     z-index: 1000;
 
-    color: rgb(158, 99, 99);
-    background-color: aqua;
+    color: rgb(255, 255, 255);
     padding-left: 30px;
     text-align: left;
     text-transform: lowercase;
-    font-size: 25px;
+    font-size: 30px;
     margin: 0;
 }
 
 header h1 {
-    background-color: royalblue;
+
 }
