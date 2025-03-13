@@ -1,10 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
 
 function Model() {
     const { nodes, materials } = useGLTF('/models/CassetteTape.gltf');
     const [scrollY, setScrollY] = useState(0);
+
+    // Debug logs for loaded nodes and materials
+    console.log('Loaded nodes:', nodes);
+    console.log('Loaded materials:', materials);
+
+    // Debugging Materials
+    const debugMaterials = {
+        caseLower: new THREE.MeshStandardMaterial({ color: 'red' }),
+        caseLid: new THREE.MeshStandardMaterial({ color: 'blue' }),
+        cassette: new THREE.MeshStandardMaterial({ color: 'green' })
+    };
+
 
     useEffect(() => {
         // Update scroll position
@@ -45,14 +58,31 @@ function Model() {
 
     return (
         <group scale={[60, 60, 60]}>
+            {/* Base case */}
             <group ref={caseLowerRef} name="CaseLower">
-                <mesh geometry={nodes['CaseLower'].geometry} material={materials['Case']} />
-                <group ref={caseLidRef} name="CaseLid">
-                    <mesh geometry={nodes['CaseLid'].geometry} material={materials['Case']} />
-                    <mesh 
+                <mesh
+                    geometry={nodes['CaseLower'].geometry}
+                    material={debugMaterials.caseLower}             // Change to materials['Case'] for original material   
+                />
+
+                {/* Lid group - position it relative to the base */}
+                <group
+                    ref={caseLidRef}
+                    name="CaseLid"
+                    position={[0, 0.015, 0.13]}                     // Adjust these values to match the model
+                    rotation={[0, 0, 0]}
+                >
+                    <mesh
+                        geometry={nodes['CaseLid'].geometry}
+                        material={debugMaterials.caseLid}           // Change to materials['Case'] for original material
+                    />
+
+                    {/* Cassette - position it relative to the lid */}
+                    <mesh
                         ref={cassetteRef}
-                        geometry={nodes['CassetteTape'].geometry} 
-                        material={materials['Cassette']} 
+                        geometry={nodes['CassetteTape'].geometry}
+                        material={debugMaterials.cassette}          // Change to materials['Cassette'] for original material
+                        position={[0, 0.01, 0]}                     // Adjust these values to match the model
                     />
                 </group>
             </group>
