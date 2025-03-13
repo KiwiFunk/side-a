@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 
@@ -13,32 +13,47 @@ function Model() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
+    // Create references for the parts of the model we want to animate.
+    const caseLowerRef = useRef();
+    const caseLidRef = useRef();
+    const cassetteRef = useRef();
+
     useFrame(() => {
         // Normalize scroll for animations (adjust as needed)
         const scrollFactor = scrollY * 0.001;
 
-        // Animations
+        // ANIMATIONS
+        // Use .current to check if the object has been loaded before accessing its properties
+
         // 1. Rotate & scale Case Lower
-        const caseLower = nodes['CaseLower'];
-        caseLower.rotation.y = scrollFactor * Math.PI * 0.5; // Rotate to 3Q angle
-        caseLower.scale.set(1 + scrollFactor, 1 + scrollFactor, 1 + scrollFactor); // Scale up
+        if (caseLowerRef.current) {
+            caseLowerRef.current.rotation.y = scrollFactor * Math.PI * 0.5;                         // Rotate to 3Q angle
+            caseLowerRef.current.scale.set(1 + scrollFactor, 1 + scrollFactor, 1 + scrollFactor);   // Scale up
+        }
 
         // 2. Rotate Case Upper (child of Case Lower)
-        const caseUpper = nodes['CaseLid'];
-        caseUpper.rotation.x = Math.min(scrollFactor * 2.5, 70 * (Math.PI / 180)); // Open lid
+        if (caseLidRef.current) {
+            caseLidRef.current.rotation.x = Math.min(scrollFactor * 2.5, 70 * (Math.PI / 180));     // Open lid
+        }
 
         // 3. Slide Cassette Tape (child of Case Upper)
-        const cassetteTape = nodes['CassetteTape'];
-        cassetteTape.position.y = scrollFactor * 5; // Move up along local Y-axis
+        if (cassetteRef.current) {
+            cassetteRef.current.position.y = scrollFactor * 5;                                      // Move up along local Y-axis
+        }
+
     });
 
     return (
-        <group>
-            <group name="CaseLower">
+        <group scale={[60, 60, 60]}>
+            <group ref={caseLowerRef} name="CaseLower">
                 <mesh geometry={nodes['CaseLower'].geometry} material={materials['Case']} />
-                <group name="CaseLid">
+                <group ref={caseLidRef} name="CaseLid">
                     <mesh geometry={nodes['CaseLid'].geometry} material={materials['Case']} />
-                    <mesh geometry={nodes['CassetteTape'].geometry} material={materials['Cassette']} />
+                    <mesh 
+                        ref={cassetteRef}
+                        geometry={nodes['CassetteTape'].geometry} 
+                        material={materials['Cassette']} 
+                    />
                 </group>
             </group>
         </group>
