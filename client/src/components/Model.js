@@ -52,7 +52,7 @@ function Model() {
     const cassetteRef = useRef();
 
     //Animation constraints
-    const SCROLL_SENSITIVITY = 0.00299;         // Decrease this number to make animations slower
+    const SCROLL_SENSITIVITY = 0.015;            // Decrease this number to make animations slower
     const MAX_ROTATION = Math.PI * 2;           // Maximum rotation (360 degrees)
     const MAX_SCALE = 1.5;                      // Maximum scale factor
     const MAX_LID_ANGLE = Math.PI / 3;          // Maximum lid opening angle (60 degrees)
@@ -60,7 +60,7 @@ function Model() {
 
     useFrame(() => {
         // Normalize scroll for animations (adjust as needed)
-        const scrollFactor = scrollY * SCROLL_SENSITIVITY;
+        const scrollFactor = (scrollY / 10) * SCROLL_SENSITIVITY;
 
         // ANIMATIONS
         // Use .current to check if the object has been loaded before accessing its properties

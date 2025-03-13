@@ -1,4 +1,6 @@
 //Display the tracklist for the current selected mixtape after the 3d animation has finished.
+//Content will eventuially be pulled from a database, but for now we can hardcode some data.
+
 import React from 'react';
 
 function Tracklist() {
