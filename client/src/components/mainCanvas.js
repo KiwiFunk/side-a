@@ -2,7 +2,7 @@
 import React from 'react';                              //Import React
 import { Canvas } from '@react-three/fiber';            //Import Canvas from react-three-fiber
 
-function mainCanvas({ children }) {
+function MainCanvas({ children }) {
     return (
       <Canvas
         camera={{ position: [0, 2, 10], fov: 50 }} // Set the camera position
@@ -15,4 +15,4 @@ function mainCanvas({ children }) {
     );
 }
 
-export default mainCanvas;
+export default MainCanvas;

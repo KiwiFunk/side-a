@@ -1,15 +1,15 @@
 import React from 'react';                              //Import React
-import mainCanvas from './mainCanvas';                  //Import mainCanvas component
+import MainCanvas from './MainCanvas';                  //Import mainCanvas component
 import Model from './Model';                            //Import Model component
 
-function mainScene() {
+function MainScene() {
     return (
         <div>
-            <mainCanvas>
+            <MainCanvas>
                 <Model />
-            </mainCanvas>
+            </MainCanvas>
         </div>
     );
 }
 
-export default mainScene;
+export default MainScene;

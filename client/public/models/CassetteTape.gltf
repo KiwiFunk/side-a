@@ -22,7 +22,7 @@
 				0
 			],
 			"mesh":1,
-			"name":"Case Lid",
+			"name":"CaseLid",
 			"translation":[
 				0,
 				0,
@@ -34,7 +34,7 @@
 				1
 			],
 			"mesh":2,
-			"name":"Case Lower"
+			"name":"CaseLower"
 		}
 	],
 	"materials":[
@@ -87,7 +87,7 @@
 	],
 	"meshes":[
 		{
-			"name":"Cube.017",
+			"name":"CassetteTape",
 			"primitives":[
 				{
 					"attributes":{
@@ -110,7 +110,7 @@
 			]
 		},
 		{
-			"name":"Cube.015",
+			"name":"CaseLid",
 			"primitives":[
 				{
 					"attributes":{
@@ -133,7 +133,7 @@
 			]
 		},
 		{
-			"name":"Cube.014",
+			"name":"CaseLower",
 			"primitives":[
 				{
 					"attributes":{
