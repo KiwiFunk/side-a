@@ -67,21 +67,17 @@
 			}
 		},
 		{
-			"alphaMode":"BLEND",
 			"doubleSided":true,
-			"emissiveFactor":[
-				1,
-				1,
-				1
-			],
 			"name":"Case",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0,
-					0,
+					0.7062546014785767,
+					0.14945146441459656,
 					0,
 					1
-				]
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
 			}
 		}
 	],
@@ -219,7 +215,7 @@
 		{
 			"bufferView":8,
 			"componentType":5126,
-			"count":444,
+			"count":332,
 			"max":[
 				0.05258449167013168,
 				0.007698473520576954,
@@ -235,13 +231,13 @@
 		{
 			"bufferView":9,
 			"componentType":5126,
-			"count":444,
+			"count":332,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":10,
 			"componentType":5126,
-			"count":444,
+			"count":332,
 			"type":"VEC2"
 		},
 		{
@@ -253,7 +249,7 @@
 		{
 			"bufferView":12,
 			"componentType":5126,
-			"count":202,
+			"count":142,
 			"max":[
 				0.05150117725133896,
 				0.006881434936076403,
@@ -269,13 +265,13 @@
 		{
 			"bufferView":13,
 			"componentType":5126,
-			"count":202,
+			"count":142,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":14,
 			"componentType":5126,
-			"count":202,
+			"count":142,
 			"type":"VEC2"
 		},
 		{
@@ -287,7 +283,7 @@
 		{
 			"bufferView":16,
 			"componentType":5126,
-			"count":1472,
+			"count":1200,
 			"max":[
 				0.053843434900045395,
 				0.007799999788403511,
@@ -303,13 +299,13 @@
 		{
 			"bufferView":17,
 			"componentType":5126,
-			"count":1472,
+			"count":1200,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":18,
 			"componentType":5126,
-			"count":1472,
+			"count":1200,
 			"type":"VEC2"
 		},
 		{
@@ -370,80 +366,80 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":5328,
+			"byteLength":3984,
 			"byteOffset":447196,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":5328,
-			"byteOffset":452524,
+			"byteLength":3984,
+			"byteOffset":451180,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3552,
-			"byteOffset":457852,
+			"byteLength":2656,
+			"byteOffset":455164,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2424,
-			"byteOffset":461404,
+			"byteOffset":457820,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":2424,
-			"byteOffset":463828,
+			"byteLength":1704,
+			"byteOffset":460244,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2424,
-			"byteOffset":466252,
+			"byteLength":1704,
+			"byteOffset":461948,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1616,
-			"byteOffset":468676,
+			"byteLength":1136,
+			"byteOffset":463652,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":912,
-			"byteOffset":470292,
+			"byteOffset":464788,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":17664,
-			"byteOffset":471204,
+			"byteLength":14400,
+			"byteOffset":465700,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":17664,
-			"byteOffset":488868,
+			"byteLength":14400,
+			"byteOffset":480100,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":11776,
-			"byteOffset":506532,
+			"byteLength":9600,
+			"byteOffset":494500,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":9480,
-			"byteOffset":518308,
+			"byteOffset":504100,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":527788,
+			"byteLength":513580,
 			"uri":"CassetteTape.bin"
 		}
 	]
