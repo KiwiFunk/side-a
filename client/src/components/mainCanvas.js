@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';            //Import Canvas from rea
 function MainCanvas({ children }) {
     return (
       <Canvas
-        camera={{ position: [0, 2, 10], fov: 50 }} // Set the camera position
+        camera={{ position: [0, 2, 10], fov: 55 }} // Set the camera position
         style={{ height: '100vh' }}
       >
         <ambientLight intensity={0.5} />
