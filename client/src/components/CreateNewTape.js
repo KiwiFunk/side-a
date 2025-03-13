@@ -1,0 +1,3 @@
+//Display the form to allow a user to create a new tape. This should include a form with fields for the tracks and the artist who performed them. The form should also include a submit button that will call the createNewTape function when clicked.
+//Submit data to the server when the form is submitted. If the server responds with a success message, display a success message to the user. If the server responds with an error message, display an error message to the user.
+//The form should also include a button that will allow the user to cancel creating a new tape and return to the list of tapes.

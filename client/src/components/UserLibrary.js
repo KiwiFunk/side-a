@@ -1,0 +1,1 @@
+//Display a scrolling library of mixtapes that the user has created. This should include the title and an image. Hovering should display the tracks and artist for each.
