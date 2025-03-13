@@ -52,7 +52,7 @@ function Model() {
     const cassetteRef = useRef();
 
     //Animation constraints
-    const SCROLL_SENSITIVITY = 0.0005;          // Decrease this number to make animations slower
+    const SCROLL_SENSITIVITY = 0.0055;          // Decrease this number to make animations slower
     const MAX_ROTATION = Math.PI * 2;           // Maximum rotation (360 degrees)
     const MAX_SCALE = 1.5;                      // Maximum scale factor
     const MAX_LID_ANGLE = Math.PI / 3;          // Maximum lid opening angle (60 degrees)
@@ -76,11 +76,12 @@ function Model() {
         if (caseLidRef.current) {
             caseLidRef.current.rotation.x = Math.min(scrollFactor * 2, MAX_LID_ANGLE);                  // Open lid
         }
-
+        /*
         // 3. Slide Cassette Tape (child of Case Upper)
         if (cassetteRef.current) {
             cassetteRef.current.position.y = Math.min(scrollFactor * 10, MAX_TAPE_LIFT);                // Move up along local Y-axis (I think in three JS this is Z axis?)
         }
+        */
 
     });
 
@@ -115,20 +116,22 @@ function Model() {
                     material={debugMaterials.labels}
                 />
 
-                {/* Render all parts of the cassette */}
-                <mesh
-                    ref={cassetteRef}
-                    geometry={nodes['CassetteTape'].geometry}
-                    material={debugMaterials.tape}
-                />
-                <mesh
-                    geometry={nodes['CassetteTape_1'].geometry}
-                    material={debugMaterials.tape}
-                />
-                <mesh
-                    geometry={nodes['CassetteTape_2'].geometry}
-                    material={debugMaterials.labels}
-                />
+                {/* Group for cassette meshes with shared ref */}
+                <group ref={cassetteRef}>
+                    {/* Render all parts of the cassette */}
+                    <mesh
+                        geometry={nodes['CassetteTape'].geometry}
+                        material={debugMaterials.tape}
+                    />
+                    <mesh
+                        geometry={nodes['CassetteTape_1'].geometry}
+                        material={debugMaterials.tape}
+                    />
+                    <mesh
+                        geometry={nodes['CassetteTape_2'].geometry}
+                        material={debugMaterials.labels}
+                    />
+                </group>
             </group>
         </group>
     </group>
