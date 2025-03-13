@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import './styles/global.css';
+
 
 import Header from './components/Header';
 import MainScene from './components/MainScene';

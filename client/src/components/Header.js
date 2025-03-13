@@ -8,8 +8,8 @@ import React from 'react';
 function Header() {
     return (
         //Placeholder styles, replace with CSS
-        <header style={{ padding: '20px', textAlign: 'center', background: '#333', color: '#fff' }}>
-            <h1>Mixtape Builder</h1>
+        <header>
+            <h1>Side A</h1>
         </header>
     );
 }
