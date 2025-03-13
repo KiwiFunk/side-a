@@ -13,18 +13,25 @@ function Model() {
 
     // Debugging Materials
     const debugMaterials = {
-        caseLower: new THREE.MeshStandardMaterial({ color: 'red' }),
-        caseLid: new THREE.MeshStandardMaterial({ color: 'blue' }),
-        cassette: new THREE.MeshStandardMaterial({ color: 'green' })
+        case: new THREE.MeshStandardMaterial({ color: 'red' }),
+        labels: new THREE.MeshStandardMaterial({ color: 'blue' }),
+        tape: new THREE.MeshStandardMaterial({ color: 'green' })
     };
 
 
     useEffect(() => {
+        // Enhanced Debug logging for materials and nodes
+        console.log('Available Nodes:', Object.keys(nodes));
+        console.log('Node Details:', nodes);
+        console.log('Available Materials:', Object.keys(materials));
+        console.log('Material Details:', materials);
+
         // Update scroll position
         const onScroll = () => setScrollY(window.scrollY);
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+
+    }, [nodes, materials]);  //Set dependencies for useEffect
 
     // Create references for the parts of the model we want to animate.
     const caseLowerRef = useRef();
@@ -57,36 +64,52 @@ function Model() {
     });
 
     return (
-        <group scale={[60, 60, 60]}>
-            {/* Base case */}
-            <group ref={caseLowerRef} name="CaseLower">
+        <group scale={[30, 30, 30]}>                                            //Set initial scale for the model
+        <group ref={caseLowerRef} name="CaseLower">
+            <mesh
+                geometry={nodes['CaseLower'].geometry}
+                material={debugMaterials.case}
+            />
+
+            {/* We have multiple materials applied to different parts of the same mesh, so need to load each part in */}
+
+            <group
+                ref={caseLidRef}
+                name="CaseLid"
+                position={[0, 0.015, 0.13]}
+                rotation={[0, 0, 0]}
+            >
+                {/* Render all parts of the lid */}
                 <mesh
-                    geometry={nodes['CaseLower'].geometry}
-                    material={debugMaterials.caseLower}             // Change to materials['Case'] for original material   
+                    geometry={nodes['CaseLid'].geometry}
+                    material={debugMaterials.case}
+                />
+                <mesh
+                    geometry={nodes['CaseLid_1'].geometry}
+                    material={debugMaterials.case}
+                />
+                <mesh
+                    geometry={nodes['CaseLid_2'].geometry}
+                    material={debugMaterials.labels}
                 />
 
-                {/* Lid group - position it relative to the base */}
-                <group
-                    ref={caseLidRef}
-                    name="CaseLid"
-                    position={[0, 0.015, 0.13]}                     // Adjust these values to match the model
-                    rotation={[0, 0, 0]}
-                >
-                    <mesh
-                        geometry={nodes['CaseLid'].geometry}
-                        material={debugMaterials.caseLid}           // Change to materials['Case'] for original material
-                    />
-
-                    {/* Cassette - position it relative to the lid */}
-                    <mesh
-                        ref={cassetteRef}
-                        geometry={nodes['CassetteTape'].geometry}
-                        material={debugMaterials.cassette}          // Change to materials['Cassette'] for original material
-                        position={[0, 0.01, 0]}                     // Adjust these values to match the model
-                    />
-                </group>
+                {/* Render all parts of the cassette */}
+                <mesh
+                    ref={cassetteRef}
+                    geometry={nodes['CassetteTape'].geometry}
+                    material={debugMaterials.tape}
+                />
+                <mesh
+                    geometry={nodes['CassetteTape_1'].geometry}
+                    material={debugMaterials.tape}
+                />
+                <mesh
+                    geometry={nodes['CassetteTape_2'].geometry}
+                    material={debugMaterials.labels}
+                />
             </group>
         </group>
+    </group>
     );
 }
 
