@@ -1,27 +1,33 @@
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 
-function Outline({ children, color = "#000000", scale = 1.0001 }) {
+function Outline({ children, color = "#000000", scale = 1.03 }) {
     const groupRef = useRef();
 
     useEffect(() => {
         if (groupRef.current) {
-            // Traverse through the group and handle only original meshes
             groupRef.current.traverse((child) => {
                 if (child.isMesh && !child.userData.isOutlineMesh) {
-                    const outlineMesh = child.clone(); // Clone the original mesh
+                    const outlineMesh = child.clone();
 
-                    // Mark the outline mesh to avoid recursive traversal
-                    outlineMesh.userData.isOutlineMesh = true;
-
-                    // Apply the outline material
+                    // Create outline material
                     outlineMesh.material = new THREE.MeshBasicMaterial({
                         color,
-                        side: THREE.BackSide, // Render back faces for the outline
+                        side: THREE.BackSide,       // Render back faces for the outline
+                        depthWrite: true,           // Ensure depth is written to include inner geometry
+                        transparent: true,          // Allow blending if needed
+                        opacity: 1.0,               // Solid black outline (adjust as needed)
                     });
 
-                    // Slightly scale up the outline mesh
+                    // Scale up the outline slightly
                     outlineMesh.scale.multiplyScalar(scale);
+
+                    // Render the outline after the main mesh
+                    outlineMesh.renderOrder = 1;
+                    child.renderOrder = 0;
+
+                    // Mark the outline mesh to prevent recursion
+                    outlineMesh.userData.isOutlineMesh = true;
 
                     // Add the outline as a child of the original mesh
                     child.add(outlineMesh);

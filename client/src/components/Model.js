@@ -3,6 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { createAcrylicMaterial } from "./Materials";
 
 /*
 BLENDER: X: LEFT TO RIGHT, Y: FORWARD TO BACKWARD, Z: UP AND DOWN
@@ -22,7 +23,7 @@ function Model() {
 
     // Model Materials
     const modelMaterials = {
-        case: new THREE.MeshStandardMaterial({ color: "rgb(200, 200, 200)" }),
+        case: createAcrylicMaterial(),
         labels: new THREE.MeshStandardMaterial({ color: "rgb(200, 200, 200)" }),
         tape: new THREE.MeshStandardMaterial({ color: "rgb(200, 200, 200)" }),
     };
@@ -77,7 +78,7 @@ function Model() {
     }, []);
 
     return (
-        <group scale={[30, 30, 30]} rotation={[0.6, 6, 0.5]}>                                     
+        <group scale={[26, 26, 26]} rotation={[0.6, 6, 0.5]}>                                     
             <group ref={caseLowerRef} name="CaseLower">
                 <mesh geometry={nodes['CaseLower'].geometry} material={modelMaterials.case} />
 
