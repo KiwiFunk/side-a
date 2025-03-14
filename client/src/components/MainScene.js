@@ -1,12 +1,16 @@
 import React from 'react';                              //Import React
 import MainCanvas from './MainCanvas';                  //Import mainCanvas component
 import Model from './Model';                            //Import Model component
+import Outline from './shaders/Outline';                //Import Outline component
 
 function MainScene() {
     return (
-        <div>
+        <div style={{ width: '100%', height: '100vh' }}>
             <MainCanvas>
-                <Model />
+                {/* Adjust these values to make the outline more visible */}
+                <Outline color="#000000" scale={1.015}>
+                    <Model />
+                </Outline>
             </MainCanvas>
         </div>
     );

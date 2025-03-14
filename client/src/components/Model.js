@@ -45,15 +45,6 @@ function Model() {
                 },
             },
         });
-
-        //Idle animation
-        gsap.to(caseLowerRef.current.rotation, {
-            y: "+=0.1", 
-            repeat: -1, 
-            yoyo: true, 
-            duration: 2, 
-            ease: "sine.inOut"
-        });
         
         // Animate the caseLower: scale and rotate
         if (caseLowerRef.current) {
@@ -74,7 +65,7 @@ function Model() {
         gsap.ticker.add(() => {
             if (caseLowerRef.current) {
                 // Combine the base rotation (from scroll) with the idle animation (oscillating rotation)
-                const idleRotationY = Math.sin(Date.now() * 0.002) * 0.1; // Oscillation for idle
+                const idleRotationY = Math.sin(Date.now() * 0.001) * 0.1; // Oscillation for idle
                 caseLowerRef.current.rotation.y = baseRotationY + idleRotationY;
             }
         });
@@ -86,7 +77,7 @@ function Model() {
     }, []);
 
     return (
-        <group scale={[30, 30, 30]}>                                     
+        <group scale={[30, 30, 30]} rotation={[0.6, 6, 0.5]}>                                     
             <group ref={caseLowerRef} name="CaseLower">
                 <mesh geometry={nodes['CaseLower'].geometry} material={modelMaterials.case} />
 
