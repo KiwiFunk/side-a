@@ -1,3 +1,4 @@
+//Using backface scaling to create an outline effect
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 

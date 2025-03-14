@@ -24,8 +24,8 @@ function Model() {
     // Model Materials
     const modelMaterials = {
         case: createAcrylicMaterial(),
-        labels: new THREE.MeshStandardMaterial({ color: "rgb(200, 200, 200)" }),
-        tape: new THREE.MeshStandardMaterial({ color: "rgb(200, 200, 200)" }),
+        labels: new THREE.MeshStandardMaterial({ color: "rgb(167, 167, 167)" }),
+        tape: new THREE.MeshStandardMaterial({ color: "rgb(214, 214, 214)" }),
     };
 
     useEffect(() => {
@@ -33,14 +33,15 @@ function Model() {
         let baseRotationY = 0;
         
         // GSAP ScrollTrigger animation logic
-        ScrollTrigger.defaults({ markers: true });                  // Enable debug markers (set to false for production)
+        ScrollTrigger.defaults({ markers: false });                  // Enable debug markers (set to false for production)
 
         const timeline = gsap.timeline({
             scrollTrigger: {
                 trigger: document.body,                             // Attach ScrollTrigger to the whole page
                 start: "top top",                                   // When the top of the page reaches the top of the viewport
-                end: "bottom bottom",                               // When the bottom of the page reaches the bottom of the viewport
+                end: "+=1000",                                      // Scroll duration for animation
                 scrub: true,                                        // Makes the animation follow the scroll progress
+                pin: true,                                          // PINS the container in place
                 onUpdate: (self) => {                               
                     baseRotationY = self.progress * Math.PI * 2;    //Updating base rotation from scroll progress
                 },
