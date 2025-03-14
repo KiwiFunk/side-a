@@ -40,15 +40,21 @@ header h1 {
 }
 
 /* TRACKLIST STYLES */
+/* TRACKLIST STYLES */
 .tracklist {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-flow: row wrap;
-    align-items: flex-start;  /* Changed from center to flex-start */
+    align-items: flex-start;
     justify-content: center;
     width: 90%;
-    max-width: 1200px;  /* Added max-width for larger screens */
-    margin: 2rem auto;  /* Center the tracklist and add vertical spacing */
-    gap: 40px;  /* Increased gap between columns */
+    max-width: 1200px;
+    padding: 2rem;
+    gap: 40px;
+    z-index: 10;
 }
 
 .tracklist h2 {

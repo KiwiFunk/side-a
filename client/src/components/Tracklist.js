@@ -1,13 +1,45 @@
-//Display the tracklist for the current selected mixtape after the 3d animation has finished.
-//Content will eventuially be pulled from a database, but for now we can hardcode some data.
-
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 function Tracklist() {
+    const tracklistRef = useRef(); // Reference for the entire tracklist section
+    const h2Ref = useRef(); // Reference for the h2 element
+    const columnsRef = useRef([]); // Reference for the columns (Side A and Side B)
+
+    // Add columns to the refs array
+    const addToRefs = (el) => {
+        if (el && !columnsRef.current.includes(el)) {
+            columnsRef.current.push(el);
+        }
+    };
+
+    useEffect(() => {
+        const timeline = gsap.timeline();
+
+        // Fade in the h2
+        timeline.from(h2Ref.current, {
+            opacity: 0,
+            y: -20, // Move up slightly while fading in
+            duration: 1,
+            ease: "power2.out",
+        });
+
+        // Animate the columns with a pop and wiggle effect
+        timeline.from(columnsRef.current, {
+            opacity: 0,
+            scale: 0.8, // Start smaller for a "pop" effect
+            rotate: -5, // Slight rotation for playfulness
+            duration: 1,
+            stagger: 0.3, // Stagger animations between columns
+            ease: "elastic.out(1, 0.5)", // Elastic easing for the wiggle effect
+        }, "-=0.5"); // Start slightly before the h2 animation ends
+
+    }, []);
+
     return (
-        <section className='tracklist'>
-            <h2>Username's Playlist:</h2>
-            <div className='tracklist-column'>
+        <section ref={tracklistRef} className='tracklist'>
+            <h2 ref={h2Ref}>Username's Playlist:</h2>
+            <div ref={addToRefs} className='tracklist-column'>
                 <h3>Side <span className='side-circle'>A</span></h3>
                 <ol>
                     <li><span className='track-name'>Next Semester</span><span className='artist-name'>Twenty One Pilots</span></li>
@@ -17,7 +49,7 @@ function Tracklist() {
                     <li><span className='track-name'>Stereo Play</span><span className='artist-name'>James Ivy</span></li>
                 </ol>
             </div>
-            <div className='tracklist-column'>
+            <div ref={addToRefs} className='tracklist-column'>
                 <h3>Side <span className='side-circle'>B</span></h3>
                 <ol>
                     <li><span className='track-name'>Hardest To Love</span><span className='artist-name'>The Weekend</span></li>
