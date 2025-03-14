@@ -5,7 +5,7 @@ import Outline from './shaders/Outline';                //Import Outline compone
 
 function MainScene() {
     return (
-        <div style={{ width: '100%', height: '100vh' }}>
+        <div id="main-scene" className="scene-container">
             <MainCanvas>
                 {/* Adjust these values to make the outline more visible */}
                 <Outline color="#000000" scale={1.015}>

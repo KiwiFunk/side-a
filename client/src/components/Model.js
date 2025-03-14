@@ -37,11 +37,12 @@ function Model() {
 
         const timeline = gsap.timeline({
             scrollTrigger: {
-                trigger: document.body,                             // Attach ScrollTrigger to the whole page
+                trigger: "#main-scene",                             // Attach ScrollTrigger to the parent container
                 start: "top top",                                   // When the top of the page reaches the top of the viewport
                 end: "+=1000",                                      // Scroll duration for animation
                 scrub: true,                                        // Makes the animation follow the scroll progress
                 pin: true,                                          // PINS the container in place
+                anticipatePin: 1,
                 onUpdate: (self) => {                               
                     baseRotationY = self.progress * Math.PI * 2;    //Updating base rotation from scroll progress
                 },
