@@ -12,12 +12,6 @@ function App() {
             <Header />
             <MainScene />
             <Tracklist />
-
-            <div style={{ padding: '50px', height: '100vh', background: '#f0f0f0', textAlign: 'center' }}>
-                <h2>Welcome to the Mixtape Builder</h2>
-                <p>Scroll down to see the magic happen!</p>
-            </div>
-
         </div>
     );
 }
