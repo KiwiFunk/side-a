@@ -4,9 +4,9 @@ import { gsap } from 'gsap';
 function Tracklist() {
     const tracklistRef = useRef(); // Reference for the entire tracklist section
     const h2Ref = useRef(); // Reference for the h2 element
-    const columnsRef = useRef([]); // Reference for the columns (Side A and Side B)
+    const columnsRef = useRef([]); // Reference for the tracklist columns
 
-    // Add columns to the refs array
+    // Add columns dynamically to refs
     const addToRefs = (el) => {
         if (el && !columnsRef.current.includes(el)) {
             columnsRef.current.push(el);
@@ -14,26 +14,39 @@ function Tracklist() {
     };
 
     useEffect(() => {
+        // Reset properties before animation starts
+        gsap.set(h2Ref.current, { opacity: 0, y: -20 });
+        gsap.set(columnsRef.current, { opacity: 0, scale: 0.8, rotate: -5 });
+
+        // Create the animation timeline
         const timeline = gsap.timeline();
 
-        // Fade in the h2
-        timeline.from(h2Ref.current, {
-            opacity: 0,
-            y: -20, // Move up slightly while fading in
+        // Fade in h2
+        timeline.to(h2Ref.current, {
+            opacity: 1,
+            y: 0,
             duration: 1,
             ease: "power2.out",
         });
 
-        // Animate the columns with a pop and wiggle effect
-        timeline.from(columnsRef.current, {
-            opacity: 0,
-            scale: 0.8, // Start smaller for a "pop" effect
-            rotate: -5, // Slight rotation for playfulness
-            duration: 1,
-            stagger: 0.3, // Stagger animations between columns
-            ease: "elastic.out(1, 0.5)", // Elastic easing for the wiggle effect
-        }, "-=0.5"); // Start slightly before the h2 animation ends
+        // Animate columns with pop and wiggle effect
+        timeline.to(
+            columnsRef.current,
+            {
+                opacity: 1,
+                scale: 1, // Return to full size
+                rotate: 0, // Reset rotation
+                duration: 1,
+                stagger: 0.3, // Stagger animations
+                ease: "elastic.out(1, 0.5)",
+            },
+            "-=0.5" // Overlap the animations slightly
+        );
 
+        // Cleanup animations on component unmount
+        return () => {
+            timeline.kill(); // Destroy the timeline
+        };
     }, []);
 
     return (
