@@ -59,7 +59,7 @@ function Model() {
 
         // Animate the cassette: move it along the Z-axis
         if (cassetteRef.current) {
-            timeline.to(cassetteRef.current.position, { z: -0.044, ease: "circ.out" }, "<");                    // Lift cassette
+            timeline.to(cassetteRef.current.position, { z: -0.044, ease: "circ.out", delay: 0.02 }, "<");       // Lift cassette (Use delay to make sure it doesnt start moving before the lid opens)
         }
 
         // Idle animation layered on top of scroll-based rotation
