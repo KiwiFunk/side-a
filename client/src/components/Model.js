@@ -47,20 +47,29 @@ function Model() {
             },
         });
 
+        //Idle animation
+        gsap.to(caseLowerRef.current.rotation, {
+            y: "+=0.1", 
+            repeat: -1, 
+            yoyo: true, 
+            duration: 2, 
+            ease: "sine.inOut"
+        });
+        
         // Animate the caseLower: scale and rotate
         if (caseLowerRef.current) {
-            timeline.to(caseLowerRef.current.rotation, { y: Math.PI * 2, ease: "power2.inOut" });             // Rotate 360 degrees
-            timeline.to(caseLowerRef.current.scale, { x: 1.5, y: 1.5, z: 1.5 }, 0);     // Scale up
+            timeline.to(caseLowerRef.current.rotation, { y: Math.PI * 2, ease: "power2.inOut" });               // Rotate 360 degrees
+            timeline.to(caseLowerRef.current.scale, { x: 1.5, y: 1.5, z: 1.5 }, 0);                             // Scale up
         }
 
         // Animate the caseLid: rotate open
         if (caseLidRef.current) {
-            timeline.to(caseLidRef.current.rotation, { x: Math.PI / 4, ease: "back.out(6)" }, "<");          // Open lid
+            timeline.to(caseLidRef.current.rotation, { x: Math.PI / 4, ease: "back.out(6)" }, "<");             // Open lid
         }
 
         // Animate the cassette: move it along the Z-axis
         if (cassetteRef.current) {
-            timeline.to(cassetteRef.current.position, { z: -0.044, ease: "circ.out" }, "<");              // Lift cassette
+            timeline.to(cassetteRef.current.position, { z: -0.044, ease: "circ.out" }, "<");                    // Lift cassette
         }
 
         // Cleanup ScrollTrigger on component unmount
