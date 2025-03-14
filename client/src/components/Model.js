@@ -20,13 +20,6 @@ function Model() {
     const caseLidRef = useRef();
     const cassetteRef = useRef();
 
-    // Debugging Materials
-    const debugMaterials = {
-        case: new THREE.MeshStandardMaterial({ color: "red" }),
-        labels: new THREE.MeshStandardMaterial({ color: "blue" }),
-        tape: new THREE.MeshStandardMaterial({ color: "green" }),
-    };
-
     // Model Materials
     const modelMaterials = {
         case: new THREE.MeshStandardMaterial({ color: "rgb(200, 200, 200)" }),
@@ -39,7 +32,7 @@ function Model() {
         let baseRotationY = 0;
         
         // GSAP ScrollTrigger animation logic
-        ScrollTrigger.defaults({ markers: true });      // Enable debug markers
+        ScrollTrigger.defaults({ markers: true });                  // Enable debug markers (set to false for production)
 
         const timeline = gsap.timeline({
             scrollTrigger: {
