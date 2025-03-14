@@ -35,15 +35,21 @@ function Model() {
     };
 
     useEffect(() => {
+        // Track base rotation from scroll driven animation
+        let baseRotationY = 0;
+        
         // GSAP ScrollTrigger animation logic
         ScrollTrigger.defaults({ markers: true });      // Enable debug markers
 
         const timeline = gsap.timeline({
             scrollTrigger: {
-                trigger: document.body,                 // Attach ScrollTrigger to the whole page
-                start: "top top",                       // When the top of the page reaches the top of the viewport
-                end: "bottom bottom",                   // When the bottom of the page reaches the bottom of the viewport
-                scrub: true,                            // Makes the animation follow the scroll progress
+                trigger: document.body,                             // Attach ScrollTrigger to the whole page
+                start: "top top",                                   // When the top of the page reaches the top of the viewport
+                end: "bottom bottom",                               // When the bottom of the page reaches the bottom of the viewport
+                scrub: true,                                        // Makes the animation follow the scroll progress
+                onUpdate: (self) => {                               
+                    baseRotationY = self.progress * Math.PI * 2;    //Updating base rotation from scroll progress
+                },
             },
         });
 
@@ -58,7 +64,6 @@ function Model() {
         
         // Animate the caseLower: scale and rotate
         if (caseLowerRef.current) {
-            timeline.to(caseLowerRef.current.rotation, { y: Math.PI * 2, ease: "power2.inOut" });               // Rotate 360 degrees
             timeline.to(caseLowerRef.current.scale, { x: 1.5, y: 1.5, z: 1.5 }, 0);                             // Scale up
         }
 
@@ -72,9 +77,18 @@ function Model() {
             timeline.to(cassetteRef.current.position, { z: -0.044, ease: "circ.out" }, "<");                    // Lift cassette
         }
 
-        // Cleanup ScrollTrigger on component unmount
+        // Idle animation layered on top of scroll-based rotation
+        gsap.ticker.add(() => {
+            if (caseLowerRef.current) {
+                // Combine the base rotation (from scroll) with the idle animation (oscillating rotation)
+                const idleRotationY = Math.sin(Date.now() * 0.002) * 0.1; // Oscillation for idle
+                caseLowerRef.current.rotation.y = baseRotationY + idleRotationY;
+            }
+        });
+
         return () => {
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());      // Cleanup ScrollTrigger on component unmount
+            gsap.ticker.remove(() => {});                                   // Cleanup idle animation ticker
         };
     }, []);
 
